@@ -14,7 +14,7 @@
 						:title="post.title"
 						:contents="post.contents"
 						:type="post.type"
-						:isLike="post.isLike"
+						:is-like="post.isLike"
 					></AppCard>
 				</div>
 			</div>
