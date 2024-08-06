@@ -15,6 +15,7 @@
 						:contents="post.contents"
 						:type="post.type"
 						:is-like="post.isLike"
+						@toggle-like="post.isLike = !post.isLike"
 					></AppCard>
 				</div>
 			</div>

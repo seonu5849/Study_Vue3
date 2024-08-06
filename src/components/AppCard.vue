@@ -9,7 +9,9 @@
 			</p>
 			<!-- <a v-if="isLike === true" href="#" class="btn btn-danger">좋아요</a>
 			<a v-else href="#" class="btn btn-outline-danger">좋아요</a> -->
-			<a href="#" class="btn" :class="isLikeClass">좋아요</a>
+			<a href="#" class="btn" :class="isLikeClass" @click="toggleLike"
+				>좋아요</a
+			>
 		</div>
 	</div>
 </template>
@@ -44,7 +46,10 @@ export default {
 			default: () => {},
 		},
 	},
-	setup(props) {
+	emit: ['toggleLike'],
+	setup(props, context) {
+		// props는 하위 컴포넌트에서는 조작할 수 없는 단방향 통신이다.
+		// emit을 통해 하위 컴포넌트에서 상위 컴포넌트로 이벤트를 보낼 수 있다.
 		console.log(props.title);
 		const isLikeClass = computed(() =>
 			props.isLike ? 'btn-danger' : 'btn-outline-danger',
@@ -52,7 +57,12 @@ export default {
 		const typeName = computed(() =>
 			props.type === 'news' ? '뉴스' : '공지사항',
 		);
-		return { isLikeClass, typeName };
+
+		const toggleLike = () => {
+			// props.isLike = !props.isLike;
+			context.emit('toggleLike');
+		};
+		return { isLikeClass, typeName, toggleLike };
 	},
 };
 </script>
