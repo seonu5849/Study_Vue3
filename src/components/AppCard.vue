@@ -12,6 +12,7 @@
 			<a href="#" class="btn" :class="isLikeClass" @click="toggleLike"
 				>좋아요</a
 			>
+			<!-- {{ obj }} -->
 		</div>
 	</div>
 </template>
@@ -60,6 +61,7 @@ export default {
 
 		const toggleLike = () => {
 			// props.isLike = !props.isLike;
+			// props.obj.title = '김길동'; // 이렇게 사용하지 않도록 주의하자
 			context.emit('toggleLike');
 		};
 		return { isLikeClass, typeName, toggleLike };

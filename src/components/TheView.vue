@@ -16,6 +16,7 @@
 						:type="post.type"
 						:is-like="post.isLike"
 						@toggle-like="post.isLike = !post.isLike"
+						:obj="obj"
 					></AppCard>
 				</div>
 			</div>
@@ -37,6 +38,11 @@ export default {
 			contents: '내용2',
 		});
 
+		const obj = reactive({
+			title: '제목2',
+			contents: '내용2',
+		});
+
 		const posts = reactive([
 			{ id: 3, title: '제목3', contents: '내용3', isLike: true, type: 'news' },
 			{
@@ -54,7 +60,7 @@ export default {
 				type: 'notice',
 			},
 		]);
-		return { post, posts };
+		return { post, posts, obj };
 	},
 };
 </script>
