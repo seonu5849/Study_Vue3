@@ -1,21 +1,16 @@
 <template>
-	<div>
-		<TheNav></TheNav>
-		<TheView></TheView>
-	</div>
+	<button class="fancy-btn">
+		<slot :fancy-message="fancyMessage">Default Click!!!</slot>
+	</button>
 </template>
 
 <script>
-import TheNav from '@/components/slot_components/TheNav.vue';
-import TheView from '@/components/slot_components/TheView.vue';
+import { ref } from 'vue';
 
 export default {
-	components: {
-		TheNav,
-		TheView,
-	},
 	setup() {
-		return {};
+		const fancyMessage = ref('Fancy Message');
+		return { fancyMessage };
 	},
 };
 </script>
