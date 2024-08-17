@@ -1,9 +1,6 @@
 <template>
 	<label>
 		{{ label }}
-		<!-- v-model="username" -->
-		<!-- :value="modelValue"
-    @input="e => $emit('update:modelValue', e.target.value)" -->
 		<input v-model="value" type="text" />
 	</label>
 </template>
@@ -12,15 +9,15 @@
 import { computed } from 'vue';
 
 export default {
-	props: ['modelValue', 'label'],
-	emits: ['update:modelValue'],
+	props: ['title', 'label'],
+	emits: ['update:title'],
 	setup(props, { emit }) {
 		const value = computed({
 			get() {
-				return props.modelValue;
+				return props.title;
 			},
 			set(value) {
-				emit('update:modelValue', value);
+				emit('update:title', value);
 			},
 		});
 		return { value };
