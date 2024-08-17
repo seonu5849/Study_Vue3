@@ -64,8 +64,9 @@ export default {
 			},
 		]);
 
-		const createPost = (a, b, c, d) => {
-			alert(`${a}, ${b}, ${c}, ${d}`);
+		const createPost = newPost => {
+			console.log(`${newPost}`);
+			posts.push(newPost);
 		};
 		return { post, posts, obj, createPost };
 	},
