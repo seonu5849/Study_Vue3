@@ -4,15 +4,28 @@
 			<div>
 				<LabelInput v-model="username" label="이름" class="d-grid"></LabelInput>
 			</div>
-			<FancyButton class="fancy-btn">Click!!!</FancyButton>
-			<FancyButton class="fancy-btn"></FancyButton>
+			<FancyButton>Click!!!</FancyButton>
+			<FancyButton #="{ fancyMessage }">{{ fancyMessage }}</FancyButton>
 			<hr />
 			<AppCard>
-				<template #[slotArgs]> 제목입니다. </template>
+				<!-- <template #[slotArgs]> 제목입니다. </template> -->
 				<!-- <template #default> 내용입니다. </template> -->
 				<!-- 내용입니다.
 				<template #footer> 푸터입니다. </template> -->
+				<template #header="{ headerMessage }">
+					{{ headerMessage }}
+				</template>
+				<template #default="{ childMessage, helloMessage }">
+					디폴트입니다. {{ message }} <br />
+					{{ childMessage }}
+					<br />
+					{{ helloMessage }}
+				</template>
+				<template #footer="{ footerMessage }">
+					{{ footerMessage }}
+				</template>
 			</AppCard>
+			<AppCard> 게시글 입니다. </AppCard>
 		</div>
 	</main>
 </template>
@@ -31,19 +44,10 @@ export default {
 	},
 	setup() {
 		const slotArgs = ref('header');
-		return { slotArgs };
+		const message = ref('');
+		return { slotArgs, message };
 	},
 };
 </script>
 
-<style scoped>
-.fancy-btn {
-	color: #fff;
-	background: linear-gradient(315deg, #42d392 25%, #647eff);
-	border: none;
-	padding: 5px 12px;
-	margin: 5px;
-	border-radius: 8px;
-	cursor: pointer;
-}
-</style>
+<style scoped></style>
