@@ -7,9 +7,9 @@
 
 <script>
 export default {
-	setup(props, context) {
+	setup(props, { emit }) {
 		const createPost = () => {
-			context.emit('createPost', 1, 2, 3, '김길동');
+			emit('createPost', 1, 2, 3, '김길동');
 		};
 		return { createPost };
 	},
