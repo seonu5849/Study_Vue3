@@ -2,6 +2,8 @@
 	<main>
 		<div class="container py-4">
 			<PostCreate @create-post="createPost"></PostCreate>
+			<hr class="my-4" />
+
 			<div class="row g-3">
 				<div class="col col-4">
 					<AppCard title="제목1" contents="내용1"></AppCard>
@@ -20,20 +22,27 @@
 						:obj="obj"
 					></AppCard>
 				</div>
+				<hr class="my-4" />
+				<LabelInput
+					:modelValue="username"
+					@update:model-value="value => (username = value)"
+				></LabelInput>
 			</div>
 		</div>
 	</main>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import AppCard from './AppCard.vue';
 import PostCreate from './PostCreate.vue';
+import LabelInput from './LabelInput.vue';
 
 export default {
 	components: {
 		AppCard,
 		PostCreate,
+		LabelInput,
 	},
 	setup() {
 		const post = reactive({
@@ -68,7 +77,10 @@ export default {
 			console.log(`${newPost}`);
 			posts.push(newPost);
 		};
-		return { post, posts, obj, createPost };
+
+		const username = ref('');
+
+		return { post, posts, obj, createPost, username };
 	},
 };
 </script>

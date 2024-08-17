@@ -51,7 +51,7 @@ export default {
 	setup(props, context) {
 		// props는 하위 컴포넌트에서는 조작할 수 없는 단방향 통신이다.
 		// emit을 통해 하위 컴포넌트에서 상위 컴포넌트로 이벤트를 보낼 수 있다.
-		console.log(props.title);
+		// console.log(props.title);
 		const isLikeClass = computed(() =>
 			props.isLike ? 'btn-danger' : 'btn-outline-danger',
 		);
