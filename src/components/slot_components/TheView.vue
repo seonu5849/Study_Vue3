@@ -25,6 +25,7 @@
 					{{ footerMessage }}
 				</template>
 			</AppCard>
+			<hr />
 			<AppCard> 게시글 입니다. </AppCard>
 		</div>
 	</main>
