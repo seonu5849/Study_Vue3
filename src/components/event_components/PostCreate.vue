@@ -1,18 +1,17 @@
 <template>
 	<div>
-		<button
-			class="btn btn-primary"
-			@click="$emit('createPost', 1, 2, 3, '김길동')"
-		>
-			button
-		</button>
+		<!-- @click="$emit('createPost', 1, 2, 3, '김길동')" -->
+		<button class="btn btn-primary" @click="createPost">button</button>
 	</div>
 </template>
 
 <script>
 export default {
-	setup() {
-		return {};
+	setup(props, context) {
+		const createPost = () => {
+			context.emit('createPost', 1, 2, 3, '김길동');
+		};
+		return { createPost };
 	},
 };
 </script>
