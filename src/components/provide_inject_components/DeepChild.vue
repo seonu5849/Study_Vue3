@@ -14,7 +14,7 @@ import { inject } from 'vue';
 
 export default {
 	setup() {
-		const staticMessage = inject('static-message');
+		const staticMessage = inject('static-message', 'default message');
 		const message = inject('message');
 		const count = inject('count');
 

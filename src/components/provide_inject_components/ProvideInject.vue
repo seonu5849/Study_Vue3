@@ -21,7 +21,7 @@ export default {
 		const staticMessage = 'static message';
 		const message = ref('message');
 		const count = ref(10);
-		provide('static-message', staticMessage);
+		// provide('static-message', staticMessage);
 		provide('message', message);
 		provide('count', count);
 		return { staticMessage, message, count };
