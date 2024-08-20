@@ -10,8 +10,9 @@
 </template>
 
 <script>
-import { provide, ref } from 'vue';
+import { provide, readonly, ref } from 'vue';
 import Child from './Child.vue';
+import { myInjectionKey } from '@/assets/keys';
 
 export default {
 	components: {
@@ -21,9 +22,17 @@ export default {
 		const staticMessage = 'static message';
 		const message = ref('message');
 		const count = ref(10);
+		const updateMessage = appendMessage => {
+			message.value = message.value + appendMessage;
+		};
 		// provide('static-message', staticMessage);
-		provide('message', message);
+
+		// readonly 함수를 통해 직접적인 변경을 막았다. 자바의 private 접근제한자와 비슷해보인다.
+		provide('message', { message: readonly(message), updateMessage });
 		provide('count', count);
+
+		provide(myInjectionKey, '123456789');
+
 		return { staticMessage, message, count };
 	},
 };
