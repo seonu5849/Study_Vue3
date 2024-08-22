@@ -5,13 +5,18 @@
 			ref에 선언한 이름과 동일하게 setup에 ref(반응형변수)를 만들어주면 서로 연결되어 사용이 가능하다.
 		-->
 		<input ref="inputRef" type="text" value="hello world!" />
+		<LifeCycleChild></LifeCycleChild>
 	</div>
 </template>
 
 <script>
 import { onBeforeMount, onMounted, ref } from 'vue';
+import LifeCycleChild from './LifeCycleChild.vue';
 
 export default {
+	components: {
+		LifeCycleChild,
+	},
 	setup() {
 		console.log('setup');
 		const inputRef = ref(null);
