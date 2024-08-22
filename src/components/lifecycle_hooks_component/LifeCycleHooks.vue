@@ -5,34 +5,50 @@
 			ref에 선언한 이름과 동일하게 setup에 ref(반응형변수)를 만들어주면 서로 연결되어 사용이 가능하다.
 		-->
 		<input ref="inputRef" type="text" value="hello world!" />
-		<LifeCycleChild></LifeCycleChild>
+		<!-- <LifeCycleChild></LifeCycleChild> -->
+		<p id="message">{{ message }}</p>
 	</div>
 </template>
 
 <script>
-import { onBeforeMount, onMounted, ref } from 'vue';
-import LifeCycleChild from './LifeCycleChild.vue';
+import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from 'vue';
+// import LifeCycleChild from './LifeCycleChild.vue';
 
 export default {
 	components: {
-		LifeCycleChild,
+		// LifeCycleChild,
 	},
 	setup() {
-		console.log('setup');
+		// console.log('setup');
 		const inputRef = ref(null);
-		onBeforeMount(() => {
-			// 돔이 생성되기 전에 호출
-			console.log('onBeforeMount');
+		const message = ref('');
+		// onBeforeMount(() => {
+		// 	// 돔이 생성되기 전에 호출
+		// 	console.log('onBeforeMount');
+		// });
+		// onMounted(() => {
+		// 	// 돔이 생성된 후 호출 따라서 돔에 접근할 수 있음
+		// 	/*
+		// 		inputRef.value는 <input type="text"> 를 가져오고,
+		// 		inputRef.value.value는 해당 input의 value값(=hello world!)을 가져온다.
+		// 	*/
+		// 	console.log('onMounted', inputRef.value.value);
+		// });
+
+		onBeforeUpdate(() => {
+			// 돔 트리 업데이트 이전에 생성됨.
+			console.log('onBeforeUpdate', message.value);
+			let messageText = document.querySelector('#message').textContent;
+			console.log('DOM Content: ', messageText);
 		});
-		onMounted(() => {
-			// 돔이 생성된 후 호출 따라서 돔에 접근할 수 있음
-			/* 
-				inputRef.value는 <input type="text"> 를 가져오고,
-				inputRef.value.value는 해당 input의 value값(=hello world!)을 가져온다.
-			*/
-			console.log('onMounted', inputRef.value.value);
+		onUpdated(() => {
+			// 반응형 변수가 변경될 때마다 호출됨.
+			console.log('onUpdated', message.value);
+			let messageText = document.querySelector('#message').textContent;
+			console.log('DOM Content: ', messageText);
 		});
-		return { inputRef };
+
+		return { inputRef, message };
 	},
 	// data: () => ({
 	// 	dataMessage: 'data message',
