@@ -17,8 +17,15 @@
 	</div>
 </template>
 
+<script>
+// script는 컴포넌트가 몇번이 생성되던 1번만 호출됨.
+console.log('Normal Script');
+</script>
+
 <script setup>
+// script setup은 컴포넌트가 생성될때마다 호출됨.
 import { computed } from 'vue';
+console.log('Script Setup');
 
 const props = defineProps({
 	type: {
