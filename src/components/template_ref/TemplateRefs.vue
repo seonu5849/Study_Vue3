@@ -17,13 +17,19 @@
 				{{ fruit }}
 			</li>
 		</ul>
+		<hr />
+		<TemplateRefsChild ref="child"></TemplateRefsChild>
 	</div>
 </template>
 
 <script>
 import { onMounted, ref } from 'vue';
+import TemplateRefsChild from './TemplateRefsChild.vue';
 
 export default {
+	components: {
+		TemplateRefsChild,
+	},
 	setup() {
 		const input = ref(null);
 		// 아직 랜더링 되지 않아 setup에서는 출력이 되지 않는다.
@@ -35,12 +41,16 @@ export default {
 
 			// itemRefs.value.forEach(item => console.log('item: ', item.textContent));
 			itemRefs.value.forEach(item => console.log('item: ', item));
+
+			console.log('child.message: ', child.value.message); // Hello ~!!, 자식컴포넌트의 message를 가져올 수 있다.
+			child.value.sayHello();
 		});
 
 		const fruits = ref(['사과', '딸기', '포도']);
 		const itemRefs = ref([]);
 
-		return { input, fruits, itemRefs };
+		const child = ref(null);
+		return { input, fruits, itemRefs, child };
 	},
 };
 </script>
