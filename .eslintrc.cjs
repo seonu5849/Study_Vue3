@@ -10,6 +10,7 @@ module.exports = {
 	],
 	parserOptions: {
 		ecmaVersion: 'latest',
+		sourceType: 'module',
 	},
 	env: {
 		'vue/setup-compiler-macros': true,

@@ -33,6 +33,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
 import PostItem from './PostItem.vue';
 import TemplateRefsChild from './TemplateRefsChild.vue';
 import MyButton from './MyButton.vue';
@@ -47,6 +48,13 @@ const child = ref(null);
 defineExpose({
 	msg,
 });
+
+// await은 async와 반드시 같이 사용해야 한다.
+// 하지만 vue-3의 script setup에서는 async를 생략할 수 있다.
+const response = await axios(
+	'https://dummy.restapiexample.com/api/v1/employees',
+);
+console.log('response: ', response);
 </script>
 
 <style lang="scss" scoped></style>
