@@ -6,6 +6,17 @@
 		<p v-if="input">
 			{{ input.value }}, {{ $refs.input.value }}, {{ $refs.input === input }}
 		</p>
+		<hr />
+		<ul>
+			<!-- <li v-for="fruit in fruits" :key="fruit" ref="itemRefs">{{ fruit }}</li> -->
+			<li
+				v-for="fruit in fruits"
+				:key="fruit"
+				:ref="el => itemRefs.push(el.textContent)"
+			>
+				{{ fruit }}
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -21,9 +32,15 @@ export default {
 			// 위와 같이 요소에 ref는 랜더링이 된 후에 사용이 가능하다.
 			input.value.value = 'Hello World';
 			console.log('onMounted: ', input.value);
+
+			// itemRefs.value.forEach(item => console.log('item: ', item.textContent));
+			itemRefs.value.forEach(item => console.log('item: ', item));
 		});
 
-		return { input };
+		const fruits = ref(['사과', '딸기', '포도']);
+		const itemRefs = ref([]);
+
+		return { input, fruits, itemRefs };
 	},
 };
 </script>
