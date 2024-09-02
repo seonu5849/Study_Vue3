@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import TheNav from '@/components/TheNav.vue';
-import TheView from '@/components/template_ref/TheView.vue';
+import TheNav from '@/components/lifecycle_hooks_component/TheNav.vue';
+import TheView from '@/components/lifecycle_hooks_component/TheView.vue';
 
 export default {
 	components: {

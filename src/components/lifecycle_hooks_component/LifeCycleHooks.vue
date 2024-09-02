@@ -5,23 +5,26 @@
 			ref에 선언한 이름과 동일하게 setup에 ref(반응형변수)를 만들어주면 서로 연결되어 사용이 가능하다.
 		-->
 		<input ref="inputRef" type="text" value="hello world!" />
-		<!-- <LifeCycleChild></LifeCycleChild> -->
+		<hr />
+		<button @click="visible = !visible">Toggle Child</button>
+		<LifeCycleChild v-if="visible"></LifeCycleChild>
 		<p id="message">{{ message }}</p>
 	</div>
 </template>
 
 <script>
 import { onBeforeMount, onBeforeUpdate, onMounted, onUpdated, ref } from 'vue';
-// import LifeCycleChild from './LifeCycleChild.vue';
+import LifeCycleChild from './LifeCycleChild.vue';
 
 export default {
 	components: {
-		// LifeCycleChild,
+		LifeCycleChild,
 	},
 	setup() {
 		// console.log('setup');
 		const inputRef = ref(null);
 		const message = ref('');
+		const visible = ref(false);
 		// onBeforeMount(() => {
 		// 	// 돔이 생성되기 전에 호출
 		// 	console.log('onBeforeMount');
@@ -29,26 +32,26 @@ export default {
 		// onMounted(() => {
 		// 	// 돔이 생성된 후 호출 따라서 돔에 접근할 수 있음
 		// 	/*
-		// 		inputRef.value는 <input type="text"> 를 가져오고,
-		// 		inputRef.value.value는 해당 input의 value값(=hello world!)을 가져온다.
+		// 		inputRef.value는 <input type="text"> 를 가져오고, document.querySelector('#input')와 동일
+		// 		inputRef.value.value는 해당 input의 value값(=hello world!)을 가져온다. document.querySelector('#input').textContent와 동일
 		// 	*/
 		// 	console.log('onMounted', inputRef.value.value);
 		// });
 
-		onBeforeUpdate(() => {
-			// 돔 트리 업데이트 이전에 생성됨.
-			console.log('onBeforeUpdate', message.value);
-			let messageText = document.querySelector('#message').textContent;
-			console.log('DOM Content: ', messageText);
-		});
-		onUpdated(() => {
-			// 반응형 변수가 변경될 때마다 호출됨.
-			console.log('onUpdated', message.value);
-			let messageText = document.querySelector('#message').textContent;
-			console.log('DOM Content: ', messageText);
-		});
+		// onBeforeUpdate(() => {
+		// 	// 돔 트리 업데이트 이전에 생성됨.
+		// 	console.log('onBeforeUpdate', message.value);
+		// 	let messageText = document.querySelector('#message').textContent;
+		// 	console.log('DOM Content: ', messageText);
+		// });
+		// onUpdated(() => {
+		// 	// 반응형 변수가 변경될 때마다 호출됨.
+		// 	console.log('onUpdated', message.value);
+		// 	let messageText = document.querySelector('#message').textContent;
+		// 	console.log('DOM Content: ', messageText);
+		// });
 
-		return { inputRef, message };
+		return { inputRef, message, visible };
 	},
 	// data: () => ({
 	// 	dataMessage: 'data message',
