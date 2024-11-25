@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>제목</h2>
-    <p>내용</p>
-    <p class="text-muted">2024-10-16</p>
+    <h2>{{ form.title }}</h2>
+    <p>{{ form.content }}</p>
+    <p class="text-muted">{{form.createAt}}</p>
     <hr class="my-4">
     <div class="row g-2">
       <div class="col-auto">
@@ -44,14 +44,62 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
+import { getPostById } from '@/api/posts';
+import { reactive, ref, watchEffect } from 'vue';
 
-const route = useRoute();
+const props = defineProps({
+  id: {
+    type: [String, Number],
+  }
+});
+
+
+
 const router = useRouter();
-const id = route.params.id;
+// const id = route.params.id;
+
+/**
+ * ref
+ * 장점) 
+ *  - 한꺼번에 객체 할당이 가능({ ...data }), 
+ *  - 레퍼런스 타입, 프리미티브 타입에 사용이 가능, 
+ *  - 일관성 유지
+ * 단점) .value를 적어야 접근이 가능하다.
+ */
+
+const form = ref({});
+
+/**
+ * reactive
+ * 장점) form.title, form.content처럼 .value를 작'성하지 않아도 된다.
+ * 단점) 객체 할당이 불가능(반응형이 사라짐), 레퍼런스 타입만 사용가능
+ */
+//const form = reactive({});
+
+const fetchPost = () => {
+  const data =  getPostById(props.id);
+  // ref를 사용할 경우
+  form.value = { ...data };
+
+  // reactive를 사용할 경우
+  // form = {...data}; 로 선언할 경우 반응형이 사라진 객체가 된다.
+  // 만약 reactive를 사용하면서 반응형(ref)를 살리려면 아래와 같이 작성해야한다.
+  //form.title = data.title;
+  //form.content = data.content;
+  //form.createAt = data.createAt;
+};
+
+fetchPost();
+
+// PostListView에서 item에 우클릭시 props값이 변경이 되는데,
+// 변경 된 props.id가 변경 될때마다 fetchPost를 동작시켜준다.
+watchEffect(() => {
+  fetchPost(props.id);
+});
 
 const goListPage = () => router.push({ name: 'PostList' });
-const goEditPage = () => router.push({ name: 'PostEdit', params: { id } });
+const goEditPage = () => router.push({ name: 'PostEdit', params: { id: props.id } });
 
 </script>
 

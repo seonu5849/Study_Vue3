@@ -36,6 +36,10 @@ const routes = [
 		path: '/posts/:id', // : (세미콜론)은 동적라우팅
 		name: 'PostDetail',
 		component: PostDetailView,
+		// props: true,
+		props: route => ({
+			id: parseInt(route.params.id),
+		})
 	},
 	{
 		path: '/posts/:id/edit',

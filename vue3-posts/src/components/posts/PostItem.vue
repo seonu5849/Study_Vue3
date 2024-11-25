@@ -1,15 +1,20 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ title }}</h5>
-      <p class="card-text">{{ content }}</p>
-    </div>
+  <AppCard>
+    <input type="hidden" v-bind:id="id" />
+    <h5 class="card-title">{{ title }}</h5>
+    <p class="card-text">{{ content }}</p>
     <p class="text-muted">{{ createAt }}</p>
-  </div>
+  </AppCard>
 </template>
 
 <script setup>
+import AppCard from '../AppCard.vue';
+
 defineProps({
+  id: {
+    type: [String, Number],
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -23,6 +28,4 @@ defineProps({
 })
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
