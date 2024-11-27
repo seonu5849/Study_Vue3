@@ -84,7 +84,7 @@ const routes = [
  */ 
 const router = createRouter({
 	// 괄호 안에 url을 붙이면 기존 base url이 붙음
-	history: createWebHistory('/base'), // history 모드로 동작,
+	history: createWebHistory('/'), // history 모드로 동작,
 	// history: createWebHashHistory(), // hashmap 모드로 동작, 페이지 이동시 url에 #이 붙음
 	routes,
 });

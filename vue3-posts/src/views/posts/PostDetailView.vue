@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>{{ form.title }}</h2>
-    <p>{{ form.content }}</p>
-    <p class="text-muted">{{form.createAt}}</p>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p class="text-muted">{{ post.createAt }}</p>
     <hr class="my-4">
     <div class="row g-2">
       <div class="col-auto">
@@ -19,7 +19,7 @@
         <button class="btn btn-outline-primary" @click="goEditPage">수정</button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-outline-danger">삭제</button>
+        <button class="btn btn-outline-danger" @click="remove">삭제</button>
       </div>
     </div>
     <!-- 
@@ -45,7 +45,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { getPostById } from '@/api/posts';
+import { getPostById, deletePost } from '@/api/posts';
 import { reactive, ref, watchEffect } from 'vue';
 
 const props = defineProps({
@@ -68,7 +68,7 @@ const router = useRouter();
  * 단점) .value를 적어야 접근이 가능하다.
  */
 
-const form = ref({});
+const post = ref({});
 
 /**
  * reactive
@@ -77,10 +77,16 @@ const form = ref({});
  */
 //const form = reactive({});
 
-const fetchPost = () => {
-  const data =  getPostById(props.id);
+const fetchPost = async () => {
+  try {
+    const { data } = await getPostById(props.id);
+    setPost(data);
+  } catch (error) {
+    console.error(error);
+  }
+
   // ref를 사용할 경우
-  form.value = { ...data };
+  //post.value = { ...data };
 
   // reactive를 사용할 경우
   // form = {...data}; 로 선언할 경우 반응형이 사라진 객체가 된다.
@@ -90,7 +96,27 @@ const fetchPost = () => {
   //form.createAt = data.createAt;
 };
 
+const setPost = ({ title, content, createAt }) => {
+  post.value.title = title;
+  post.value.content = content;
+  post.value.createAt = createAt;
+
+}
+
 fetchPost();
+
+const remove = async () => {
+  try {
+    if (confirm('삭제하시겠습니까?') === false) {
+      return;
+    }
+
+    await deletePost(props.id);
+    router.push({ name: 'PostList' });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // PostListView에서 item에 우클릭시 props값이 변경이 되는데,
 // 변경 된 props.id가 변경 될때마다 fetchPost를 동작시켜준다.
@@ -103,6 +129,4 @@ const goEditPage = () => router.push({ name: 'PostEdit', params: { id: props.id 
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
