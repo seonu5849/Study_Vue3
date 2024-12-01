@@ -10,7 +10,7 @@
       </div>
     </div>
     <hr class="my-4">
-    <AppCard>
+    <AppCard v-if="currentId">
       <PostDetailView :id="currentId"></PostDetailView>
     </AppCard>
   </div>
@@ -25,11 +25,16 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const posts = ref([]);
 const router = useRouter();
+const currentId = ref(null);
 
 const fetchPosts = async () => {
   try {
     const { data } = await getPosts();
     posts.value = data;
+
+    if (posts.value.length > 0) {
+      currentId.value = posts.value[0].id; // fetch 완료 후 설정
+    }
   } catch (error) {
     console.error(error);
   }
@@ -50,9 +55,9 @@ const goPage = id => {
   })
 }
 
-let currentId = ref('1');
 const onRightClick = (postId, event) => {
   event.preventDefault();
+
   currentId.value = String(postId);
 }
 
