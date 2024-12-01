@@ -121,7 +121,7 @@ const remove = async () => {
 // PostListView에서 item에 우클릭시 props값이 변경이 되는데,
 // 변경 된 props.id가 변경 될때마다 fetchPost를 동작시켜준다.
 watchEffect(() => {
-  fetchPost(props.id);
+  fetchPost();
 });
 
 const goListPage = () => router.push({ name: 'PostList' });
